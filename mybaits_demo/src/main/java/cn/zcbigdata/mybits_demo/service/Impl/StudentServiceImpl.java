@@ -45,4 +45,26 @@ public class StudentServiceImpl implements StudentService {
         int pageSize = limitInteger;
         return this.studentMapper.selectStudent(pageIndex, pageSize);
     }
+
+    @Override
+    public Student selectStudentById(int id) {
+        return this.studentMapper.selectStudentById(id);
+    }
+
+    @Override
+    public int checkOpen(Student student) {
+        return this.studentMapper.updateStudentOpen(student);
+    }
+
+    @Override
+    public int checkMid(Student student) {
+        return this.studentMapper.updateStudentMid(student);
+    }
+
+    @Override
+    public int checkLast(Student student) {
+        return this.studentMapper.updateStudentLast(student);
+    }
+
+
 }

@@ -31,11 +31,11 @@ public class Paper {
         this.teacherId = teacherId;
     }
 
-    public boolean getisChecked() {
+    public boolean getIsChecked() {
         return isChecked;
     }
 
-    public void setisChecked(boolean checked) {
+    public void setIsChecked(boolean checked) {
         isChecked = checked;
     }
 

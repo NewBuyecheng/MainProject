@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zcbigdata.mybits_demo.mapper.PaperMapper">
+
+    <resultMap id="BaseResultMap" type="cn.zcbigdata.mybits_demo.entity.Paper">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="subject" jdbcType="VARCHAR" property="subject" />
+        <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+        <result column="isChecked" jdbcType="BIT" property="isChecked" />
+    </resultMap>
+
+    <insert id="insertPaper" parameterType="cn.zcbigdata.mybits_demo.entity.Paper">
+        insert into paper(subject, teacherId, isChecked)
+        values (#{subject},#{teacherId},#{isChecked})
+    </insert>
+
+    <delete id="deletePaper" parameterType="java.lang.Integer">
+        delete from paper
+        where  id=#{id}
+    </delete>
+
+    <update id="updatePaper" parameterType="cn.zcbigdata.mybits_demo.entity.Paper">
+        update paper
+        set subject = #{subject},
+            teacherId = #{teacherId},
+            isChecked = #{isChecked}
+        where id = #{id}
+    </update>
+
+    <select id="countPaper" resultType="java.lang.Integer">
+        select count(*) from paper
+    </select>
+
+    <select id="selectPaper" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Paper">
+        select * from paper limit #{param1},#{param2}
+    </select>
+
+    <update id="updatePaperIsChecked" parameterType="cn.zcbigdata.mybits_demo.entity.Paper">
+        update paper
+        set isChecked = #{isChecked}
+        where id = #{id}
+    </update>
+</mapper>

@@ -1,11 +1,10 @@
-package cn.zcbigdata.mybits_demo.mapper;
+package cn.zcbigdata.mybits_demo.service;
 
 import cn.zcbigdata.mybits_demo.entity.Paper;
 
 import java.util.List;
 
-public interface PaperMapper {
-
+public interface PaperService {
     int insertPaper(Paper paper);
 
     int deletePaper(int id);
@@ -14,7 +13,8 @@ public interface PaperMapper {
 
     int countPaper();
 
-    List<Paper> selectPaper(int a,int b);
+    List<Paper> selectPaper(int a, int b);
 
-    int updatePaperIsChecked(Paper paper);
+    int checkPaper(Paper paper);
+
 }

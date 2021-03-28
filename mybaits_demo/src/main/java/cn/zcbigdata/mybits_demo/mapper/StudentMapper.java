@@ -17,4 +17,12 @@ public interface StudentMapper {
     int countStudent();
 
     List<Student> selectStudent(int a, int b);
+
+    Student selectStudentById(int id);
+
+    int updateStudentOpen(Student student);
+
+    int updateStudentMid(Student student);
+
+    int updateStudentLast(Student student);
 }

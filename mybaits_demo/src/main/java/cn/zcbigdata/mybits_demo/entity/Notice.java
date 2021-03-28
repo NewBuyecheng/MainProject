@@ -30,7 +30,7 @@ public class Notice {
         this.content = content;
     }
 
-    public boolean isFlag() {
+    public boolean getFlag() {
         return flag;
     }
 

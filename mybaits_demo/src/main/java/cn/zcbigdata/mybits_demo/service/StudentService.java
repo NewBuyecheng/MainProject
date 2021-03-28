@@ -17,4 +17,12 @@ public interface StudentService {
     int countStudent();
 
     List<Student> selectStudent(int a, int b);
+
+    Student selectStudentById(int id);
+
+    int checkOpen(Student student);
+
+    int checkMid(Student student);
+
+    int checkLast(Student student);
 }
