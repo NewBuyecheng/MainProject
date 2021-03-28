@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zcbigdata.mybits_demo.mapper.StudentMapper">
+
+    <resultMap id="BaseResultMap" type="cn.zcbigdata.mybits_demo.entity.Student">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="class_name" jdbcType="VARCHAR" property="class_name" />
+        <result column="major" jdbcType="VARCHAR" property="major" />
+        <result column="paper_address" jdbcType="VARCHAR" property="paper_address" />
+    </resultMap>
+
+    <select id="find" resultType="cn.zcbigdata.mybits_demo.entity.Student">
+        select * from student where username = #{username}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zcbigdata.mybits_demo.mapper.TeacherMapper">
+
+    <resultMap id="BaseResultMap" type="cn.zcbigdata.mybits_demo.entity.Teacher">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="manjor" jdbcType="VARCHAR" property="manjor" />
+        <result column="class_num" jdbcType="VARCHAR" property="class_num" />
+        <result column="info_id" jdbcType="VARCHAR" property="info_id" />
+        <result column="info_status" jdbcType="VARCHAR" property="info_status" />
+    </resultMap>
+
+    <select id="find" resultType="cn.zcbigdata.mybits_demo.entity.Teacher">
+        select * from teacher where username = #{username}
+    </select>
+
+
+
+</mapper>
