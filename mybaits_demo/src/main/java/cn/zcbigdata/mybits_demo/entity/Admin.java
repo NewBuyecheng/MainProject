@@ -1,20 +1,17 @@
 package cn.zcbigdata.mybits_demo.entity;
 
-public class Teacher {
+public class Admin {
+
     private int id;
     private String account;
     private String password;
-    private String name;
-    private String title;
 
     @Override
     public String toString() {
-        return "Teacher{" +
+        return "Admin{" +
                 "id=" + id +
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", title='" + title + '\'' +
                 '}';
     }
 
@@ -41,22 +38,6 @@ public class Teacher {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
 }
