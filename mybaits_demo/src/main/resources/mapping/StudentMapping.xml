@@ -4,16 +4,63 @@
 
     <resultMap id="BaseResultMap" type="cn.zcbigdata.mybits_demo.entity.Student">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="account" jdbcType="VARCHAR" property="account" />
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="class_name" jdbcType="VARCHAR" property="class_name" />
-        <result column="major" jdbcType="VARCHAR" property="major" />
-        <result column="paper_address" jdbcType="VARCHAR" property="paper_address" />
+        <result column="paperId" jdbcType="INTEGER" property="paperId" />
+        <result column="teacherId" jdbcType="INTEGER" property="teacherId" />
+        <result column="open" jdbcType="VARCHAR" property="open" />
+        <result column="openpass" jdbcType="BIT" property="openpass" />
+        <result column="opencomment" jdbcType="VARCHAR" property="opencomment" />
+        <result column="mid" jdbcType="VARCHAR" property="mid" />
+        <result column="midpass" jdbcType="BIT" property="midpass" />
+        <result column="midcomment" jdbcType="VARCHAR" property="midcomment" />
+        <result column="last" jdbcType="VARCHAR" property="last" />
+        <result column="lastpass" jdbcType="BIT" property="lastpass" />
+        <result column="lastcomment" jdbcType="VARCHAR" property="lastcomment" />
+        <result column="grade" jdbcType="INTEGER" property="grade" />
     </resultMap>
 
     <select id="find" resultType="cn.zcbigdata.mybits_demo.entity.Student">
-        select * from student where username = #{username}
+        select * from student where account = #{account}
+    </select>
+
+    <insert id="insertStudent" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+        insert into student(account, password, name)
+        values (#{account},#{password},#{name})
+    </insert>
+
+    <delete id="deleteStudent" parameterType="java.lang.Integer">
+        delete from student
+        where  id=#{id}
+    </delete>
+
+    <update id="updateStudent" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+        update student
+        set account = #{account},
+            password = #{password},
+            name = #{name},
+            paperId = #{paperId},
+            teacherId = #{teacherId},
+            open = #{open},
+            openpass = #{openpass},
+            opencomment = #{opencomment},
+            mid = #{mid},
+            midpass = #{midpass},
+            midcomment = #{midcomment},
+            last = #{last},
+            lastpass = #{lastpass},
+            lastcomment = #{lastcomment},
+            grade = #{grade}
+        where id = #{id}
+    </update>
+
+    <select id="countStudent" resultType="java.lang.Integer">
+        select count(*) from student
+    </select>
+
+    <select id="selectStudent" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Student">
+        select * from student limit #{param1},#{param2}
     </select>
 
 

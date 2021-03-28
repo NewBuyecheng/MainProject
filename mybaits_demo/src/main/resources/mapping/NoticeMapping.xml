@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zcbigdata.mybits_demo.mapper.NoticeMapper">
+
+    <resultMap id="BaseResultMap" type="cn.zcbigdata.mybits_demo.entity.Notice">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="flag" jdbcType="BIT" property="flag" />
+    </resultMap>
+
+
+    <insert id="insertNotice" parameterType="cn.zcbigdata.mybits_demo.entity.Notice">
+        insert into notice(content, flag)
+        values (#{content},#{flag})
+    </insert>
+
+    <delete id="deleteNotice" parameterType="java.lang.Integer">
+        delete from notice
+        where  id=#{id}
+    </delete>
+
+    <update id="updateNotice" parameterType="cn.zcbigdata.mybits_demo.entity.Notice">
+        update notice
+        set content = #{content},
+            flag = #{flag}
+        where id = #{id}
+    </update>
+
+    <select id="countNotice" resultType="java.lang.Integer">
+        select count(*) from notice
+    </select>
+
+    <select id="selectNotice" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Notice">
+        select * from notice limit #{param1},#{param2}
+    </select>
+
+
+</mapper>
