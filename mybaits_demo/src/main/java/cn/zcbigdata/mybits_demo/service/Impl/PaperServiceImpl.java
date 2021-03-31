@@ -45,4 +45,9 @@ public class PaperServiceImpl implements PaperService {
     public int checkPaper(Paper paper) {
         return this.paperMapper.updatePaperIsChecked(paper);
     }
+
+    @Override
+    public Paper selectPaperByStudentId(int studentId) {
+        return this.paperMapper.selectPaperByStudentId(studentId);
+    }
 }

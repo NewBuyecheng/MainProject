@@ -3,6 +3,7 @@ package cn.zcbigdata.mybits_demo.controller;
 import cn.zcbigdata.mybits_demo.Util.CheckLogin;
 import cn.zcbigdata.mybits_demo.Util.ObjtoLayJson;
 import cn.zcbigdata.mybits_demo.entity.Paper;
+import cn.zcbigdata.mybits_demo.entity.Student;
 import cn.zcbigdata.mybits_demo.service.PaperService;
 import cn.zcbigdata.mybits_demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +134,90 @@ public class TeacherController {
                 return data;
             }else {
                 String data = "{\"code\":\"999\",\"message\":\"审核失败\"}";
+                return data;
+            }
+        }
+    }
+
+    @RequestMapping(value = "/checkOpen", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String checkOpen(@RequestParam("id") String id,@RequestParam("open") String open,@RequestParam("openpass") String openpass,
+                            @RequestParam("opencomment") String opencomment,HttpServletRequest request){
+        if(CheckLogin.checkLoginFlag(request) == 2){
+            String data = "{\"code\":\"777\",\"message\":\"没有权限\"}";
+            return data;
+        }else{
+            Integer idInteger = Integer.valueOf(id);
+            Boolean openpassBoolean = Boolean.valueOf(openpass);
+
+            Student student = new Student();
+            student.setId(idInteger);
+            student.setOpen(open);
+            student.setOpenpass(openpassBoolean);
+            student.setOpencomment(opencomment);
+
+            int count = studentService.checkOpen(student);
+            if(count == 1) {
+                String data = "{\"code\":\"200\",\"message\":\"本次审核成功\"}";
+                return data;
+            }else {
+                String data = "{\"code\":\"999\",\"message\":\"本次审核失败\"}";
+                return data;
+            }
+        }
+    }
+
+    @RequestMapping(value = "/checkMid", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String checkMid(@RequestParam("id") String id,@RequestParam("mid") String mid,@RequestParam("midpass") String midpass,
+                           @RequestParam("midcomment") String midcomment,HttpServletRequest request){
+        if(CheckLogin.checkLoginFlag(request) == 2){
+            String data = "{\"code\":\"777\",\"message\":\"没有权限\"}";
+            return data;
+        }else{
+            Integer idInteger = Integer.valueOf(id);
+            Boolean midpassBoolean = Boolean.valueOf(midpass);
+
+            Student student = new Student();
+            student.setId(idInteger);
+            student.setOpen(mid);
+            student.setOpenpass(midpassBoolean);
+            student.setOpencomment(midcomment);
+
+            int count = studentService.checkOpen(student);
+            if(count == 1) {
+                String data = "{\"code\":\"200\",\"message\":\"本次审核成功\"}";
+                return data;
+            }else {
+                String data = "{\"code\":\"999\",\"message\":\"本次审核失败\"}";
+                return data;
+            }
+        }
+    }
+
+    @RequestMapping(value = "/checkLast", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String checkLast(@RequestParam("id") String id,@RequestParam("last") String last,@RequestParam("lastpass") String lastpass,
+                            @RequestParam("lastcomment") String lastcomment,HttpServletRequest request){
+        if(CheckLogin.checkLoginFlag(request) == 2){
+            String data = "{\"code\":\"777\",\"message\":\"没有权限\"}";
+            return data;
+        }else{
+            Integer idInteger = Integer.valueOf(id);
+            Boolean lastpassBoolean = Boolean.valueOf(lastpass);
+
+            Student student = new Student();
+            student.setId(idInteger);
+            student.setOpen(last);
+            student.setOpenpass(lastpassBoolean);
+            student.setOpencomment(lastcomment);
+
+            int count = studentService.checkOpen(student);
+            if(count == 1) {
+                String data = "{\"code\":\"200\",\"message\":\"本次审核成功\"}";
+                return data;
+            }else {
+                String data = "{\"code\":\"999\",\"message\":\"本次审核失败\"}";
                 return data;
             }
         }

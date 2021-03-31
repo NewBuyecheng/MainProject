@@ -17,4 +17,5 @@ public interface PaperService {
 
     int checkPaper(Paper paper);
 
+    Paper selectPaperByStudentId(int studentId);
 }

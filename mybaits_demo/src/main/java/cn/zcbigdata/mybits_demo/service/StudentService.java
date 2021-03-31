@@ -25,4 +25,6 @@ public interface StudentService {
     int checkMid(Student student);
 
     int checkLast(Student student);
+
+    int choosePaper(Student student);
 }

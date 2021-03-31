@@ -57,6 +57,9 @@ public class LoginController {
             Admin admin = adminService.find(account);
             if(admin.getPassword().equals(password)){
                 UserName = admin.getAccount();
+                //存储id
+                int id = admin.getId();
+                session.setAttribute("userid",id);
                 //标识身份
                 session.setAttribute("flag",0);
             }
@@ -65,6 +68,9 @@ public class LoginController {
             Teacher teacher = teacherService.find(account);
             if(teacher.getPassword().equals(password)){
                 UserName = teacher.getAccount();
+                //存储id
+                int id = teacher.getId();
+                session.setAttribute("userid",id);
                 //标识身份
                 session.setAttribute("flag",1);
             }
@@ -73,6 +79,9 @@ public class LoginController {
             Student student = studentService.find(account);
             if (student.getPassword().equals(password)){
                 UserName = student.getAccount();
+                //存储id
+                int id = student.getId();
+                session.setAttribute("userid",id);
                 //标识身份
                 session.setAttribute("flag",2);
             }

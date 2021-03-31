@@ -1,8 +1,9 @@
 package cn.zcbigdata.mybits_demo.controller;
 
-import cn.zcbigdata.mybits_demo.Util.CheckLogin;
 import cn.zcbigdata.mybits_demo.Util.ObjtoLayJson;
+import cn.zcbigdata.mybits_demo.entity.Paper;
 import cn.zcbigdata.mybits_demo.entity.Student;
+import cn.zcbigdata.mybits_demo.service.PaperService;
 import cn.zcbigdata.mybits_demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private PaperService paperService;
 
     @RequestMapping(value = "/selectStudentById", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
@@ -31,30 +36,63 @@ public class StudentController {
         return data;
     }
 
-    @RequestMapping(value = "/checkOpen", method = RequestMethod.GET)
+    @RequestMapping(value = "/choosePaper", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
-    public String checkOpen(@RequestParam("id") String id,@RequestParam("open") String open,@RequestParam("openpass") String openpass,
-                            @RequestParam("opencomment") String opencomment,HttpServletRequest request){
-        if(CheckLogin.checkLoginFlag(request) == 2){
-            String data = "{\"code\":\"777\",\"message\":\"没有权限\"}";
-            return data;
-        }else{
-            Integer idInteger = Integer.valueOf(id);
-            Boolean openpassBoolean = Boolean.valueOf(openpass);
-            Student student = new Student();
-            student.setId(idInteger);
-            student.setOpen(open);
-            student.setOpenpass(openpassBoolean);
-            student.setOpencomment(opencomment);
+    public String choosePaper(@RequestParam("id") String id,@RequestParam("paperId") String paperId,HttpServletRequest request){
+        Integer idInteger = Integer.valueOf(id);
+        Integer paperIdInteger = Integer.valueOf(paperId);
 
-            int count = studentService.checkOpen(student);
-            if(count == 1) {
-                String data = "{\"code\":\"200\",\"message\":\"添加成功\"}";
-                return data;
-            }else {
-                String data = "{\"code\":\"999\",\"message\":\"添加失败\"}";
-                return data;
-            }
+        Student student = new Student();
+        student.setId(idInteger);
+        student.setPaperId(paperIdInteger);
+
+        int count = studentService.choosePaper(student);
+        if (count == 1) {
+            String data = "{\"code\":\"200\",\"message\":\"选择成功\"}";
+            return data;
+        }else {
+            String data = "{\"code\":\"999\",\"message\":\"选择失败\"}";
+            return data;
         }
     }
+
+    @RequestMapping(value = "/insertPaper", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String insertPaper(@RequestParam("subject") String subject,@RequestParam("teacherId") String teacherId,@RequestParam("id") String id,HttpServletRequest request){
+
+        Integer teacherIdInteger = Integer.valueOf(teacherId);
+        Paper paper = new Paper();
+        paper.setSubject(subject);
+        paper.setIsChecked(false);
+        paper.setTeacherId(teacherIdInteger);
+        int count1 = paperService.insertPaper(paper);
+
+        Integer idInteger = Integer.valueOf(id);
+        Student student = new Student();
+        student.setId(idInteger);
+        student.setTeacherId(teacherIdInteger);
+        int count2 = studentService.choosePaper(student);
+
+        if(count1 + count2 ==2){
+            String data = "{\"code\":\"200\",\"message\":\"提交题目成功\"}";
+            return data;
+        }else {
+            String data = "{\"code\":\"999\",\"message\":\"提交题目失败\"}";
+            return data;
+        }
+    }
+
+    @RequestMapping(value = "/selectPaperByStudentId", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String selectPaperByStudentId(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        Integer idInteger = (Integer) session.getAttribute("userid");
+
+        Paper paper = paperService.selectPaperByStudentId(idInteger);
+        String[] colums = {"id","subject","teacherId","isChecked"};
+        String data = ObjtoLayJson.toJson(paper,colums);
+        return data;
+
+    }
+
 }

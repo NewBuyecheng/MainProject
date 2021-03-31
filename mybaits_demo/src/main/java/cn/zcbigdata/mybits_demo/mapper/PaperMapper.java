@@ -17,4 +17,6 @@ public interface PaperMapper {
     List<Paper> selectPaper(int a,int b);
 
     int updatePaperIsChecked(Paper paper);
+
+    Paper selectPaperByStudentId(int studentId);
 }

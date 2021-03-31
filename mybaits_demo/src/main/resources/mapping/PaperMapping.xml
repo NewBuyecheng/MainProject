@@ -40,4 +40,8 @@
         set isChecked = #{isChecked}
         where id = #{id}
     </update>
+
+    <select id="selectPaperByStudentId" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Paper">
+        select * from paper where id = (select paperId from student where id = #{id})
+    </select>
 </mapper>

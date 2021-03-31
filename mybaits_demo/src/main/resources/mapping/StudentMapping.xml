@@ -67,6 +67,46 @@
         select * from student where id = #{id}
     </select>
 
+    <update id="updateStudentOpen" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+        update student
+        set
+            open = #{open},
+            openpass = #{openpass},
+            opencomment = #{opencomment}
+
+        where id = #{id}
+    </update>
+
+    <update id="updateStudentMid" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+        update student
+        set
+            mid = #{mid},
+            midpass = #{midpass},
+            midcomment = #{midcomment}
+
+        where id = #{id}
+    </update>
+
+    <update id="updateStudentLast" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+        update student
+        set
+            last = #{last},
+            lastpass = #{lastpass},
+            lastcomment = #{lastcomment}
+
+        where id = #{id}
+    </update>
+
+    <update id="choosePaper" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+        update student
+        set
+            paperId = (select id from paper where subject = #{subject}),
+            teacherId = #{teacherId}
+
+        where id = #{id}
+    </update>
+    
+
 
 
 </mapper>

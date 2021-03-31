@@ -25,4 +25,6 @@ public interface StudentMapper {
     int updateStudentMid(Student student);
 
     int updateStudentLast(Student student);
+
+    int choosePaper(Student student);
 }

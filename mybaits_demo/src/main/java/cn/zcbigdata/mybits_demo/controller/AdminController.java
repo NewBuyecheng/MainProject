@@ -294,8 +294,8 @@ public class AdminController {
     @ResponseBody  //返回json类型的数据
     public String insertNotice(@RequestParam("content") String content,@RequestParam("flag") String flag, HttpServletRequest request){
 
-        if(CheckLogin.checkLoginFlag(request) != 0){
-            String data = "{\"code\":\"777\",\"message\":\"没有管理员权限\"}";
+        if(CheckLogin.checkLoginFlag(request) == 2){
+            String data = "{\"code\":\"777\",\"message\":\"没有权限\"}";
             return data;
         }else{
             Notice notice = new Notice();
@@ -366,18 +366,13 @@ public class AdminController {
     @ResponseBody  //返回json类型的数据
     public String countNotice(HttpServletRequest request){
 
-        if (CheckLogin.checkLoginFlag(request) != 0) {
-            String data = "{\"code\":\"777\",\"message\":\"没有管理员权限\"}";
+        int count = noticeService.countNotice();
+        if(count < 1) {
+            String data = "{\"code\":\"999\",\"message\":\"数据为空\",\"count\":\"0\"}";
             return data;
-        } else {
-            int count = noticeService.countNotice();
-            if(count < 1) {
-                String data = "{\"code\":\"999\",\"message\":\"数据为空\",\"count\":\"0\"}";
-                return data;
-            }else {
-                String data = "{\"code\":\"200\",\"message\":\"查询成功\",\"count\":"+count+"}";
-                return data;
-            }
+        }else {
+            String data = "{\"code\":\"200\",\"message\":\"查询成功\",\"count\":"+count+"}";
+            return data;
         }
 
     }

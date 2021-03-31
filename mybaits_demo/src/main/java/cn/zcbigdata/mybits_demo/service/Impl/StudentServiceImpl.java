@@ -66,5 +66,10 @@ public class StudentServiceImpl implements StudentService {
         return this.studentMapper.updateStudentLast(student);
     }
 
+    @Override
+    public int choosePaper(Student student) {
+        return this.studentMapper.choosePaper(student);
+    }
+
 
 }
