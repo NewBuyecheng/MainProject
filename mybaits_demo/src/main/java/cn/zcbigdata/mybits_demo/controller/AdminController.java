@@ -183,6 +183,8 @@ public class AdminController {
                 teacher.setPassword(password);
                 teacher.setName(name);
                 teacher.setTitle(title);
+
+                System.out.println(teacher);
                 int count = teacherService.insertTeacher(teacher);
                 if(count == 1) {
                     String data = "{\"code\":\"200\",\"message\":\"添加成功\"}";
@@ -260,7 +262,7 @@ public class AdminController {
     public String countTeacher(HttpServletRequest request){
         if(CheckLogin.checkLogin(request)) {
             if (CheckLogin.checkLoginFlag(request) != 0) {
-                String data = "{\"code\":\"777\",\"message\":\"没有管理员权限\"}";
+                String data = "{\"code\":\"777\",\"message\":\"没有管理员权限\",\"count\":\"0\"}";
                 return data;
             } else {
                 int count = teacherService.countTeacher();

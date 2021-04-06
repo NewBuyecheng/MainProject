@@ -27,4 +27,6 @@ public interface StudentMapper {
     int updateStudentLast(Student student);
 
     int choosePaper(Student student);
+
+    int insertStuFromXml(List<Student> students);
 }

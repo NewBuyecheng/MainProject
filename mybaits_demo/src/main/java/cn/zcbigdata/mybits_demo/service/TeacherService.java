@@ -17,4 +17,7 @@ public interface TeacherService {
 
     List<Teacher> selectTeacher(int a, int b);
 
+    Teacher selectTeacherById(int teacherId);
+
+    Teacher selectTeacherByStudentById(int studentId);
 }

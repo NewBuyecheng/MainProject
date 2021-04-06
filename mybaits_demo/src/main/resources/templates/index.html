@@ -21,13 +21,13 @@
                 <input class="input_self" type="text" name="account" id="account" />
             </div>
             <div class='blank_30'></div>
-            <div class="input_tit">New Password</div>
+            <div class="input_tit">Your Password</div>
             <div class="input_box">
                 <input class="input_self" type="text" name="password" id="password" />
             </div>
             <div class="finish_box">
                 <input class="finish_btn" type="button" id="finish" name="finish" value="Finish" onclick="get()"/>
-                <input class="finish_btn" type="button"  onclick="add()"/>
+                <!--<input class="finish_btn" type="button"  onclick="add()"/>-->
             </div>
         </form>
     </div>
@@ -54,7 +54,7 @@
             success: function (data)//success、error代表是否返回成功
             {
                 console.log(data);
-                ifCookie(data);
+                //ifCookie(data);
             },
             error:function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(typeof(errorThrown));

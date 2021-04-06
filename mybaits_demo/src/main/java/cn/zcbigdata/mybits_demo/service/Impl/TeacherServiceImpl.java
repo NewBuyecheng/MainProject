@@ -46,4 +46,14 @@ public class TeacherServiceImpl implements TeacherService {
         int pageSize = limitInteger;
         return this.teacherMapper.selectTeacher(pageIndex, pageSize);
     }
+
+    @Override
+    public Teacher selectTeacherById(int teacherId) {
+        return this.teacherMapper.selectTeacherById(teacherId);
+    }
+
+    @Override
+    public Teacher selectTeacherByStudentById(int studentId) {
+        return this.teacherMapper.selectTeacherByStudentById(studentId);
+    }
 }

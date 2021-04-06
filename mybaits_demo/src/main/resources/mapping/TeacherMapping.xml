@@ -37,8 +37,16 @@
         select count(*) from teacher
     </select>
 
-    <select id="selectStudent" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Teacher">
+    <select id="selectTeacher" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Teacher">
         select * from teacher limit #{param1},#{param2}
+    </select>
+
+    <select id="selectTeacherById" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Teacher">
+        select * from teacher where id = #{id}
+    </select>
+
+    <select id="selectTeacherByStudentId" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Teacher">
+        select * from teacher where id = (select teacherId from student where id=#{id})
     </select>
 
 

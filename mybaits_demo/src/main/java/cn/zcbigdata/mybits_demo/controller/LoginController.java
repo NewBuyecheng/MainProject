@@ -35,7 +35,12 @@ public class LoginController {
 
     @RequestMapping("/index1")
     public String index1(){
-        return "index1";
+        return "back";
+    }
+
+    @RequestMapping("/backend")
+    public String back() {
+        return "back";
     }
 
 
@@ -67,7 +72,7 @@ public class LoginController {
         }else if(integerflag == 1){
             Teacher teacher = teacherService.find(account);
             if(teacher.getPassword().equals(password)){
-                UserName = teacher.getAccount();
+                UserName = teacher.getName();
                 //存储id
                 int id = teacher.getId();
                 session.setAttribute("userid",id);
@@ -78,7 +83,7 @@ public class LoginController {
         }else{
             Student student = studentService.find(account);
             if (student.getPassword().equals(password)){
-                UserName = student.getAccount();
+                UserName = student.getName();
                 //存储id
                 int id = student.getId();
                 session.setAttribute("userid",id);
@@ -106,5 +111,7 @@ public class LoginController {
         return UserName;
 
     }
+
+
 
 }

@@ -4,8 +4,10 @@ import cn.zcbigdata.mybits_demo.Util.CheckLogin;
 import cn.zcbigdata.mybits_demo.Util.ObjtoLayJson;
 import cn.zcbigdata.mybits_demo.entity.Paper;
 import cn.zcbigdata.mybits_demo.entity.Student;
+import cn.zcbigdata.mybits_demo.entity.Teacher;
 import cn.zcbigdata.mybits_demo.service.PaperService;
 import cn.zcbigdata.mybits_demo.service.StudentService;
+import cn.zcbigdata.mybits_demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequestMapping("/teacher")
 public class TeacherController {
 
+    @Autowired
+    private TeacherService teacherService;
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -222,4 +226,20 @@ public class TeacherController {
             }
         }
     }
+
+    @RequestMapping(value = "/selectTeacherById", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String selectPaperById(@RequestParam("id") String id,HttpServletRequest request) throws Exception {
+
+        Integer idInteger = Integer.valueOf(id);
+
+        Teacher teacher = teacherService.selectTeacherById(idInteger);
+        if(teacher == null)
+            return null;
+        String[] colums = {"id","account","password","name","title"};
+        String data = ObjtoLayJson.toJson(teacher,colums);
+        return data;
+    }
+
+
 }

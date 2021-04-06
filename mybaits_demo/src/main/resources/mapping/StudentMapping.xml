@@ -105,7 +105,14 @@
 
         where id = #{id}
     </update>
-    
+
+    <insert id="insertStuFromXml" parameterType="java.util.List" >
+        INSERT INTO student(account,password,name) VALUES
+        <foreach collection="list" item="item" index="index"
+                 separator=",">
+            (#{item.account},#{item.password},#{item.name})
+        </foreach>
+    </insert>
 
 
 

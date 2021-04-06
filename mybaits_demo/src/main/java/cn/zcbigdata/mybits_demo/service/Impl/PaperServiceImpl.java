@@ -6,6 +6,8 @@ import cn.zcbigdata.mybits_demo.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -47,7 +49,14 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public Paper selectPaperByStudentId(int studentId) {
+    public Paper selectPaperByStudentId(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int studentId = (int)session.getAttribute("userid");
         return this.paperMapper.selectPaperByStudentId(studentId);
+    }
+
+    @Override
+    public Paper selectPaperById(int paperId) {
+        return this.paperMapper.selectPaperById(paperId);
     }
 }

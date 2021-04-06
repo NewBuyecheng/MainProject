@@ -16,4 +16,8 @@ public interface TeacherMapper {
     int countTeacher();
 
     List<Teacher> selectTeacher(int a,int b);
+
+    Teacher selectTeacherById(int teacherId);
+
+    Teacher selectTeacherByStudentById(int studentId);
 }

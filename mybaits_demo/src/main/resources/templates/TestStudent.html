@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../static/layui/css/layui.css"  media="all">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<!--修改的from表单 -->
+<form class="layui-form" action="" id="updataForm" style="display:none" lay-filter="updata" enctype="multipart/form-data">
+    <div class="layui-form-item" style="display:none">
+        <label class="layui-form-label">id</label>
+        <div class="layui-input-block">
+            <input type="text" id="id" name="id" lay-verify="id" autocomplete="off" placeholder="学生编号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-block">
+            <input type="text" id="account" name="account"  autocomplete="off" placeholder="账号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="text" id="password" name="password"  autocomplete="off" placeholder="密码" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" id="name" name="name"  autocomplete="off" placeholder="姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文编号</label>
+        <div class="layui-input-block">
+            <input type="text" id="paperId" name="paperId"  autocomplete="off" placeholder="论文编号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">教师编号</label>
+        <div class="layui-input-block">
+            <input type="text" id="teacherId" name="teacherId"  autocomplete="off" placeholder="教师编号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开题报告</label>
+        <div class="layui-input-block">
+            <input type="text" id="open" name="open"  autocomplete="off" placeholder="开题报告" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开题报告审核</label>
+        <div class="layui-input-block">
+            <input type="text" id="openpass" name="openpass"  autocomplete="off" placeholder="开题报告审核" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开题报告评语</label>
+        <div class="layui-input-block">
+            <input type="text" id="opencomment" name="opencomment"  autocomplete="off" placeholder="开题报告评语" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文初稿</label>
+        <div class="layui-input-block">
+            <input type="text" id="mid" name="mid"  autocomplete="off" placeholder="论文初稿" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文初稿审核</label>
+        <div class="layui-input-block">
+            <input type="text" id="midpass" name="midpass"  autocomplete="off" placeholder="论文初稿审核" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文初稿评语</label>
+        <div class="layui-input-block">
+            <input type="text" id="midcomment" name="midcomment"  autocomplete="off" placeholder="论文初稿评语" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文终稿</label>
+        <div class="layui-input-block">
+            <input type="text" id="last" name="last"  autocomplete="off" placeholder="论文终稿" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文终稿审核</label>
+        <div class="layui-input-block">
+            <input type="text" id="lastpass" name="lastpass"  autocomplete="off" placeholder="论文终稿审核" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文终稿评语</label>
+        <div class="layui-input-block">
+            <input type="text" id="lastcomment" name="lastcomment"  autocomplete="off" placeholder="论文终稿评语" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">最终成绩</label>
+        <div class="layui-input-block">
+            <input type="text" id="grade" name="grade"  autocomplete="off" placeholder="最终成绩" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="sub">
+        <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo3" id="updatasub">提交</button>
+    </div>
+</form>
+<!-- 添加的from表单 -->
+<form class="layui-form" action="" id="addForm" style="display:none" lay-filter="add" enctype="multipart/form-data">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号</label>
+        <div class="layui-input-block">
+            <input type="text" name="account"  autocomplete="off" placeholder="账号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+            <input type="text" name="password"  autocomplete="off" placeholder="密码" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name"  autocomplete="off" placeholder="姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文编号</label>
+        <div class="layui-input-block">
+            <input type="text"  name="paperId"  autocomplete="off" placeholder="论文编号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">教师编号</label>
+        <div class="layui-input-block">
+            <input type="text" name="teacherId"  autocomplete="off" placeholder="教师编号" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开题报告</label>
+        <div class="layui-input-block">
+            <input type="text" name="open"  autocomplete="off" placeholder="开题报告" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开题报告审核</label>
+        <div class="layui-input-block">
+            <input type="text" name="openpass"  autocomplete="off" placeholder="开题报告审核" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">开题报告评语</label>
+        <div class="layui-input-block">
+            <input type="text" name="opencomment"  autocomplete="off" placeholder="开题报告评语" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文初稿</label>
+        <div class="layui-input-block">
+            <input type="text" name="mid"  autocomplete="off" placeholder="论文初稿" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文初稿审核</label>
+        <div class="layui-input-block">
+            <input type="text" name="midpass"  autocomplete="off" placeholder="论文初稿审核" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文初稿评语</label>
+        <div class="layui-input-block">
+            <input type="text" name="midcomment"  autocomplete="off" placeholder="论文初稿评语" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文终稿</label>
+        <div class="layui-input-block">
+            <input type="text" name="last"  autocomplete="off" placeholder="论文终稿" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文终稿审核</label>
+        <div class="layui-input-block">
+            <input type="text" name="lastpass"  autocomplete="off" placeholder="论文终稿审核" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">论文终稿评语</label>
+        <div class="layui-input-block">
+            <input type="text" name="lastcomment"  autocomplete="off" placeholder="论文终稿评语" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">最终成绩</label>
+        <div class="layui-input-block">
+            <input type="text" name="grade"  autocomplete="off" placeholder="最终成绩" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" id="sub">
+        <button style="" class="layui-btn" type="button" lay-submit lay-filter="demo2" id="addsub">提交</button>
+    </div>
+</form>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-sm" id="add" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="paperIdBtn">
+    <div id="layerDemo" style="margin-bottom: 0;height: 100%;width: 100%;">
+        <button index="paper" style="height: 100%;width: 100%;line-height: 100%" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{d.paperId}}</button>
+    </div>
+</script>
+<script type="text/html" id="teacherIdBtn">
+    <div id="layerDemo" style="margin-bottom: 0;height: 100%;width: 100%;">
+        <button index="teacher" style="height: 100%;width: 100%;line-height: 100%" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">{{d.teacherId}}</button>
+    </div>
+</script>
+
+<script src="../static/layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script th:inline="none">
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //引入from表单
+        layui.use(['form', 'laydate'], function(){
+            form = layui.form;
+            form.render();
+
+            //表单取值
+            form.on('submit(demo2)', function(data){
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url:'http://localhost:8080/admin/insertStudent',
+                    method:'get',
+
+                    data:data.field,
+                    dataType:'JSON',
+                    success:function(res){
+                        if(res.status='0'){
+                            console.log(res);
+                            layer.msg("添加成功");
+                            $("#addForm")[0].reset();
+                            form.render();
+                            //刷新页面
+                            table.reload('test', {
+                                url: 'http://localhost:8080/admin/selectStudent'
+                            });
+                            page();
+                            layer.reload();
+                        }else{
+                            layer.msg("添加失败");
+                            $("#addForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("网络错误");
+                        $("#addForm")[0].reset();
+                        form.render();
+                    }
+                }) ;
+                layer.close(layer_index);
+            });
+            form.on('submit(demo3)', function(data){
+                console.log(JSON.stringify(data.field));
+                $.ajax({
+                    url:'http://localhost:8080/admin/updateStudent',
+                    method:'get',
+                    data:data.field,
+                    dataType:'JSON',
+                    success:function(res){
+                        if(res.status='0'){
+                            console.log(res);
+                            layer.msg("添加成功");
+                            $("#updataForm")[0].reset();
+                            form.render();
+                            //刷新页面
+                            table.reload('test', {
+                                url: 'http://localhost:8080/admin/selectStudent'
+                            });
+                            page();
+                        }else{
+                            layer.msg("添加失败");
+                            $("#updataForm")[0].reset();
+                            form.render();
+                        }
+                    },
+                    error:function (data) {
+                        layer.msg("网络错误");
+                        $("#updataForm")[0].reset();
+                        form.render();
+                    }
+                }) ;
+                layer.close(layer_index);
+            });
+        });
+
+        var pagecount;
+        page();
+        function page(){
+            $.ajax({
+                url: 'http://localhost:8080/admin/countStudent',
+                dataType: 'json',
+                type: 'get',
+                async:false,
+                success: function(data) {
+                    pagecount = data.count;
+                    //console.log(data.count)
+                    //console.log(pagecount)
+                }
+            });
+        }
+        //console.log(pagecount);
+
+        table.render({
+            elem: '#test'
+            ,url:'http://localhost:8080/admin/selectStudent'
+            ,toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                ,layEvent: 'LAYTABLE_TIPS'
+                ,icon: 'layui-icon-tips'
+            }]
+            ,title: '用户数据表'
+            ,cols: [[
+                {type: 'checkbox', fixed: 'left'}
+                ,{field:'id', width:60, title: 'ID', sort: true}
+                ,{field:'account', width:100, title: '账号'}
+                ,{field:'password', width:100, title: '密码'}
+                ,{field:'name', width:90, title: '姓名'}
+                ,{field:'paperId', width:90, title: '论文编号',templet:"#paperIdBtn"}
+                ,{field:'teacherId', width:90, title: '教师编号',templet:"#teacherIdBtn"}
+                ,{field:'open', width:100, title: '开题报告'}
+                ,{field:'openpass', width:120, title: '开题报告审核'}
+                ,{field:'opencomment', width:120, title: '开题报告评语'}
+                ,{field:'mid', width:100, title: '论文初稿'}
+                ,{field:'midpass', width:120, title: '论文初稿审核'}
+                ,{field:'midcomment', width:120, title: '论文初稿评语'}
+                ,{field:'last', width:100, title: '论文终稿'}
+                ,{field:'lastpass', width:120, title: '论文终稿审核'}
+                ,{field:'lastcomment', width:120, title: '论文终稿评语'}
+                ,{field:'grade', width:90, title: '最终成绩'}
+                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+            ]]
+            ,page: true
+            ,response:{
+                statusName: 'status' //规定数据状态的字段名称，默认：code
+                ,dataName: 'rows' //规定数据列表的字段名称，默认：data
+            }
+            ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+                return {
+                    "status": res[0].status,   //解析接口状态
+                    "message":res[1].message,  //解析提示文本
+                    "count": pagecount,       //解析数据长度
+                    "rows": res[3].rows.item  //解析数据列表
+                };
+            }
+        });
+
+
+
+        //头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    add();
+                    break;
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            };
+        });
+        function add(){
+            layer_index= layer.open({
+                type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: "添加", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+                area: ['500px', '400px'], //所打开页面大小
+                content:$("#addForm"), //内容
+                //关闭操作
+                cancel: function(){
+                    layer.close(layer_index);
+                    $("#addForm")[0].reset();
+                    $('#demoe1').attr('src', "");
+                }
+            });
+            //刷新页面
+            table.reload('test', {
+                url: 'http://localhost:8080/admin/selectStudent'
+            });
+            page();
+        }
+        //监听行工具事件
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+
+                    //在这里写删除方法
+                    deleteById(data.id);
+                    //刷新页面
+                    table.reload('test', {
+                        url: 'http://localhost:8080/admin/selectStudent'
+                    });
+                     page();
+
+                    layer.close(index);
+                });
+            } else if(obj.event === 'edit'){
+                form.val("updata", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                    "id": data.id // "name": "value"
+                    ,"account":data.account
+                    ,"password": data.password
+                    ,"name": data.name
+                    ,"paperId": data.paperId
+                    ,"teacherId": data.teacherId
+                    ,"open": data.open
+                    ,"openpass": data.openpass
+                    ,"opencomment": data.opencomment
+                    ,"mid": data.mid
+                    ,"midpass": data.midpass
+                    ,"midcomment": data.midcomment
+                    ,"last": data.last
+                    ,"lastpass": data.lastpass
+                    ,"lastcomment": data.lastcomment
+                    ,"grade": data.grade
+                });
+                updateById(data);page()
+            }
+        });
+        //删除
+        function deleteById(index){
+
+            var url = 'http://localhost:8080/admin/deleteStudent';
+            $.ajax({
+                type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+                url: url,    //传输地址的URL
+                data: {"id":index}, //data代表我们的数据  key -value类型的数据
+                dataType:'JSON',
+                async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+                success: function (res)
+                {
+
+
+                },
+                error:function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(typeof(errorThrown));
+                }
+            });
+        }
+
+
+
+        //修改
+        function updateById(data){
+
+            layer_index= layer.open({
+                type: 1,  //可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                title: "修改", //数组第二项可以写任意css样式；如果你不想显示标题栏，你可以title: false
+                area: ['500px', '400px'], //所打开页面大小
+                content:$("#updataForm"), //内容
+                //将数据显示在框上边
+
+                //关闭操作
+                cancel: function(){
+                    layer.close(layer_index);
+                    $("#updataForm")[0].reset();
+
+                }
+            });
+
+        }
+
+    });
+</script>
+</body>
+<script>
+    self.setInterval(function (){
+        layui.use('layer', function(){ //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+            //触发事件
+            var active = {
+                offset: function(othis){
+                    var type = othis.data('type')
+                        ,text = othis.text();
+                    if(othis.attr("index") == "paper")
+                        selectPaperById(othis);
+                    else if(othis.attr("index") == "teacher")
+                        selectTeacherById(othis);
+
+                    layer.open({
+                        type: 1
+                        ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                        ,id: 'layerDemo'+type //防止重复弹出
+                        ,content: '<div style="padding: 20px 70px;">'+ othis.content +'</div>'
+                        ,btn: '关闭'
+                        ,anim: 4
+                        ,btnAlign: 'c' //按钮居中
+                        ,shade: 0 //不显示遮罩
+                        ,yes: function(){
+                            layer.closeAll();
+                        }
+                    });
+                }
+            };
+
+            $('#layerDemo .layui-btn').on('click', function(){
+                var othis = $(this), method = othis.data('method');
+                active[method] ? active[method].call(this, othis) : '';
+            });
+
+        });
+    },2000);
+
+    //查找
+    function selectPaperById(othis){
+
+        var url = 'http://localhost:8080/student/selectPaperById';
+        $.ajax({
+            type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+            url: url,    //传输地址的URL
+            data: {"id":othis.text()}, //data代表我们的数据  key -value类型的数据
+            dataType:'JSON',
+            async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+            success: function (res)
+            {
+                othis.content = '<p>论文编号:'+res[3].rows.item[0].id+'</p><br/>' +
+                    '<p>论文题目:'+res[3].rows.item[1].subject+'</p><br/>' +
+                    '<p>指导教师编号:'+res[3].rows.item[2].teacherId+'</p><br/>' +
+                    '<p>题目审核:'+res[3].rows.item[3].isChecked+'</p><br/>';
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                //alert(typeof(errorThrown));
+            }
+        });
+    }
+    //查找老师
+    function selectTeacherById(othis){
+
+        var url = 'http://localhost:8080/teacher/selectTeacherById';
+        $.ajax({
+            type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+            url: url,    //传输地址的URL
+            data: {"id":othis.text()}, //data代表我们的数据  key -value类型的数据
+            dataType:'JSON',
+            async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+            success: function (res)
+            {
+                othis.content = '<p>教师编号:'+res[3].rows.item[0].id+'</p><br/>' +
+                    '<p>教师姓名:'+res[3].rows.item[3].name+'</p><br/>' +
+                    '<p>教师职称:'+res[3].rows.item[4].title+'</p><br/>';
+            },
+            error:function (XMLHttpRequest, textStatus, errorThrown) {
+                //alert(typeof(errorThrown));
+            }
+        });
+    }
+</script>
+</html>
+

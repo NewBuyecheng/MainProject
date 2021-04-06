@@ -7,13 +7,9 @@ import cn.zcbigdata.mybits_demo.service.PaperService;
 import cn.zcbigdata.mybits_demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/student")
@@ -85,10 +81,24 @@ public class StudentController {
     @RequestMapping(value = "/selectPaperByStudentId", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
     public String selectPaperByStudentId(HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-        Integer idInteger = (Integer) session.getAttribute("userid");
+        Paper paper = paperService.selectPaperByStudentId(request);
+        if(paper == null)
+            return null;
+        String[] colums = {"id","subject","teacherId","isChecked"};
+        String data = ObjtoLayJson.toJson(paper,colums);
+        return data;
 
-        Paper paper = paperService.selectPaperByStudentId(idInteger);
+    }
+
+    @RequestMapping(value = "/selectPaperById", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String selectPaperById(@RequestParam("id") String paperId,HttpServletRequest request) throws Exception {
+
+        Integer paperIdInteger = Integer.valueOf(paperId);
+
+        Paper paper = paperService.selectPaperById(paperIdInteger);
+        if(paper == null)
+            return null;
         String[] colums = {"id","subject","teacherId","isChecked"};
         String data = ObjtoLayJson.toJson(paper,colums);
         return data;

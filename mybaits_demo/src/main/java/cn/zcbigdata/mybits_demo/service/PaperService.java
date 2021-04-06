@@ -2,6 +2,7 @@ package cn.zcbigdata.mybits_demo.service;
 
 import cn.zcbigdata.mybits_demo.entity.Paper;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface PaperService {
@@ -17,5 +18,7 @@ public interface PaperService {
 
     int checkPaper(Paper paper);
 
-    Paper selectPaperByStudentId(int studentId);
+    Paper selectPaperByStudentId(HttpServletRequest request);
+
+    Paper selectPaperById(int paperId);
 }

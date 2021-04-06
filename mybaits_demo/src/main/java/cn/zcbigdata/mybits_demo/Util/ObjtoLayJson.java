@@ -83,7 +83,7 @@ public class ObjtoLayJson {
 			
 			String arr = "{";
 			for( int j = 0; j < dataRow[i].length; j++) {
-				System.out.println("j======"+j);
+				//System.out.println("j======"+j);
 				if(dataRow[i][j] == null || "NULL".equals(dataRow[i][j])) {
 					arr += "\"\"";
 				}else {
