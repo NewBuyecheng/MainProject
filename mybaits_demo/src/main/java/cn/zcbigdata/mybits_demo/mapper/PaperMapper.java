@@ -21,4 +21,8 @@ public interface PaperMapper {
     Paper selectPaperByStudentId(int studentId);
 
     Paper selectPaperById(int paperId);
+
+    int countPaperNotChecked();
+
+    List<Paper> selectPaperNotChecked(int a,int b);
 }

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../static/layui/css/layui.css"  media="all">
+    <link rel="shortcuticon"href="../resources/favicon.ico" th:href="@{/static/favicon.ico}">
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
@@ -558,7 +559,7 @@
     //查找
     function selectPaperById(othis){
 
-        var url = 'http://localhost:8080/student/selectPaperById';
+        var url = 'http://localhost:8080/admin/selectPaperById';
         $.ajax({
             type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
             url: url,    //传输地址的URL

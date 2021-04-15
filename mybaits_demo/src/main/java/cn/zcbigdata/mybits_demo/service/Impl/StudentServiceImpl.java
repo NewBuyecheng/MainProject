@@ -1,6 +1,7 @@
 package cn.zcbigdata.mybits_demo.service.Impl;
 
 import cn.zcbigdata.mybits_demo.entity.Student;
+import cn.zcbigdata.mybits_demo.entity.StudentChoosePaper;
 import cn.zcbigdata.mybits_demo.mapper.StudentMapper;
 import cn.zcbigdata.mybits_demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +68,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int choosePaper(Student student) {
-        return this.studentMapper.choosePaper(student);
+    public int choosePaper(StudentChoosePaper studentChoosePaper) {
+        return this.studentMapper.choosePaper(studentChoosePaper)&this.studentMapper.choosePaper2(studentChoosePaper);
     }
 
 

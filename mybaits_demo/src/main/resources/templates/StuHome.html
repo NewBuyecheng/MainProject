@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/StuHome.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body onload="getMessage()">
+    <h2>我的题目</h2>
+    </div><div class="message">
+        <ul>
+            <li>
+                <div class='title'>姓名</div>
+                <div class='value' id="name"></div>
+            </li>
+            <li>
+                <div class='title'>论文题目</div>
+                <div class='value' id="paperSubject"></div>
+            </li>
+            <li>
+                <div class='title'>审核状态</div>
+                <div class='value' id="paperChecked"></div>
+            </li>
+            <li>
+                <div class='title'>指导教师</div>
+                <div class='value' id="teacher"></div>
+            </li>
+        </ul>
+
+    </div>
+<script>
+    function getMessage(){
+        $.ajax({
+            url: 'http://localhost:8080/student/selectStudentById',
+            dataType: 'json',
+            type: 'get',
+            async:false,
+            success: function(data) {
+                $("#name").html(data[3].rows.item[3].name);
+                var paperId = data[3].rows.item[4].paperId;
+                var teacherId = data[3].rows.item[5].teacherId;
+                if(paperId != null && paperId != 0)
+                    getPaper(paperId);
+                else
+                    $("#paperSubject").html("暂未选择题目");
+                if(teacherId != null && teacherId != 0)
+                    getTeacher(teacherId)
+
+            }
+        });
+    }
+    function getPaper(data){
+        $.ajax({
+            url: 'http://localhost:8080/student/selectPaperById',
+            dataType: 'json',
+            data: {"id":data},
+            type: 'get',
+            async:false,
+            success: function(res) {
+                $("#paperSubject").html(res[3].rows.item[1].subject.toString());
+            }
+        });
+    }
+    function getTeacher(data){
+        $.ajax({
+            url: 'http://localhost:8080/teacher/selectTeacherById',
+            dataType: 'json',
+            data: {"id":data},
+            type: 'get',
+            async:false,
+            success: function(res) {
+                $("#paperSubject").html(res[3].rows.item[1].subject.toString());
+            }
+        });
+    }
+</script>
+</body>
+</html>

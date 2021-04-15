@@ -3,12 +3,10 @@ package cn.zcbigdata.mybits_demo.controller;
 import cn.zcbigdata.mybits_demo.Util.CheckLogin;
 import cn.zcbigdata.mybits_demo.Util.ObjtoLayJson;
 import cn.zcbigdata.mybits_demo.entity.Notice;
+import cn.zcbigdata.mybits_demo.entity.Paper;
 import cn.zcbigdata.mybits_demo.entity.Student;
 import cn.zcbigdata.mybits_demo.entity.Teacher;
-import cn.zcbigdata.mybits_demo.service.AdminService;
-import cn.zcbigdata.mybits_demo.service.NoticeService;
-import cn.zcbigdata.mybits_demo.service.StudentService;
-import cn.zcbigdata.mybits_demo.service.TeacherService;
+import cn.zcbigdata.mybits_demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +30,8 @@ public class AdminController {
     private TeacherService teacherService;
     @Autowired
     private NoticeService noticeService;
+    @Autowired
+    private PaperService paperService;
 
     @RequestMapping(value = "/insertStudent", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
@@ -156,6 +156,21 @@ public class AdminController {
             String data = "{\"code\":\"777\",\"message\":\"用户未登录\"}";
             return data;
         }
+    }
+
+    @RequestMapping(value = "/selectPaperById", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String selectPaperById(@RequestParam("id") String paperId,HttpServletRequest request) throws Exception {
+
+        Integer paperIdInteger = Integer.valueOf(paperId);
+
+        Paper paper = paperService.selectPaperById(paperIdInteger);
+        if(paper == null)
+            return null;
+        String[] colums = {"id","subject","teacherId","isChecked"};
+        String data = ObjtoLayJson.toJson(paper,colums);
+        return data;
+
     }
 
     @RequestMapping(value = "/selectStudent", method = RequestMethod.GET)

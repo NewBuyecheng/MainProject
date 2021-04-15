@@ -97,13 +97,19 @@
         where id = #{id}
     </update>
 
-    <update id="choosePaper" parameterType="cn.zcbigdata.mybits_demo.entity.Student">
+    <update id="choosePaper" parameterType="cn.zcbigdata.mybits_demo.entity.StudentChoosePaper">
         update student
         set
             paperId = (select id from paper where subject = #{subject}),
             teacherId = #{teacherId}
 
         where id = #{id}
+    </update>
+    <update id="choosePaper2" parameterType="cn.zcbigdata.mybits_demo.entity.StudentChoosePaper">
+        update paper
+        set
+            isChecked = 0
+        where subject = #{subject}
     </update>
 
     <insert id="insertStuFromXml" parameterType="java.util.List" >

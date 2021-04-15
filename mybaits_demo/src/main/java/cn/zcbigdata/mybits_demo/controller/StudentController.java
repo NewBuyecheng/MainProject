@@ -3,13 +3,19 @@ package cn.zcbigdata.mybits_demo.controller;
 import cn.zcbigdata.mybits_demo.Util.ObjtoLayJson;
 import cn.zcbigdata.mybits_demo.entity.Paper;
 import cn.zcbigdata.mybits_demo.entity.Student;
+import cn.zcbigdata.mybits_demo.entity.StudentChoosePaper;
 import cn.zcbigdata.mybits_demo.service.PaperService;
 import cn.zcbigdata.mybits_demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/student")
@@ -22,9 +28,10 @@ public class StudentController {
 
     @RequestMapping(value = "/selectStudentById", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
-    public String selectStudentById(@RequestParam("id") String id, HttpServletRequest request) throws Exception {
+    public String selectStudentById(HttpServletRequest request) throws Exception {
 
-        Integer idInteger = Integer.valueOf(id);
+        HttpSession session = request.getSession();
+        Integer idInteger = (Integer)session.getAttribute("userid");
 
         String[] colums = {"id","account","password","name","paperId","teacherId","open","openpass","opencomment","mid","midpass","midcomment","last","lastpass","lastcomment","grade"};
         Student student = studentService.selectStudentById(idInteger);
@@ -34,15 +41,23 @@ public class StudentController {
 
     @RequestMapping(value = "/choosePaper", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
-    public String choosePaper(@RequestParam("id") String id,@RequestParam("paperId") String paperId,HttpServletRequest request){
-        Integer idInteger = Integer.valueOf(id);
+    public String choosePaper(@RequestParam("paperId") String paperId,HttpServletRequest request){
         Integer paperIdInteger = Integer.valueOf(paperId);
 
-        Student student = new Student();
-        student.setId(idInteger);
-        student.setPaperId(paperIdInteger);
+        HttpSession session = request.getSession();
+        Integer idInteger = (Integer)session.getAttribute("userid");
+        Student student = studentService.selectStudentById(idInteger);
+        if(student == null || student.getPaperId() != 0){
+            return "{\"code\":\"888\",\"message\":\"已经选择了一个论文题目，不能够多选！\"}";
+        }
 
-        int count = studentService.choosePaper(student);
+        Paper paper = paperService.selectPaperById(paperIdInteger);
+
+        StudentChoosePaper studentChoosePaper = new StudentChoosePaper();
+        studentChoosePaper.setId(idInteger);
+        studentChoosePaper.setSubject(paper.getSubject());
+        studentChoosePaper.setTeacherId(paper.getTeacherId());
+        int count = studentService.choosePaper(studentChoosePaper);
         if (count == 1) {
             String data = "{\"code\":\"200\",\"message\":\"选择成功\"}";
             return data;
@@ -54,7 +69,14 @@ public class StudentController {
 
     @RequestMapping(value = "/insertPaper", method = RequestMethod.GET)
     @ResponseBody  //返回json类型的数据
-    public String insertPaper(@RequestParam("subject") String subject,@RequestParam("teacherId") String teacherId,@RequestParam("id") String id,HttpServletRequest request){
+    public String insertPaper(@RequestParam("subject") String subject,@RequestParam("teacherId") String teacherId,HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        Integer idInteger = (Integer)session.getAttribute("userid");
+        Student student = studentService.selectStudentById(idInteger);
+        if(student == null || student.getPaperId() != 0){
+            return "{\"code\":\"888\",\"message\":\"已经选择了一个论文题目，不能够再次申请！\"}";
+        }
 
         Integer teacherIdInteger = Integer.valueOf(teacherId);
         Paper paper = new Paper();
@@ -63,11 +85,11 @@ public class StudentController {
         paper.setTeacherId(teacherIdInteger);
         int count1 = paperService.insertPaper(paper);
 
-        Integer idInteger = Integer.valueOf(id);
-        Student student = new Student();
-        student.setId(idInteger);
-        student.setTeacherId(teacherIdInteger);
-        int count2 = studentService.choosePaper(student);
+        StudentChoosePaper studentChoosePaper = new StudentChoosePaper();
+        studentChoosePaper.setId(idInteger);
+        studentChoosePaper.setTeacherId(teacherIdInteger);
+        studentChoosePaper.setSubject(subject);
+        int count2 = studentService.choosePaper(studentChoosePaper);
 
         if(count1 + count2 ==2){
             String data = "{\"code\":\"200\",\"message\":\"提交题目成功\"}";
@@ -104,5 +126,26 @@ public class StudentController {
         return data;
 
     }
+
+    @RequestMapping(value = "/countPaperNotChecked", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String countPaperNotChecked(HttpServletRequest request){
+        int count = paperService.countPaperNotChecked();
+        String data = "{\"code\":\"200\",\"message\":\"查询成功\",\"count\":"+count+"}";
+        return data;
+    }
+
+    @RequestMapping(value = "/selectPaperNotChecked", method = RequestMethod.GET)
+    @ResponseBody  //返回json类型的数据
+    public String selectPaperNotChecked(@RequestParam("page") String page,@RequestParam("limit") String limit,HttpServletRequest request) throws Exception {
+        Integer pageInteger = Integer.valueOf(page);
+        Integer limitInteger = Integer.valueOf(limit);
+
+        List<Paper> papers = paperService.selectPaperNotChecked(pageInteger, limitInteger);
+        String[] colums = {"id", "subject", "teacherId", "isChecked"};
+        String data = ObjtoLayJson.ListtoJson(papers, colums);
+        return data;
+    }
+
 
 }

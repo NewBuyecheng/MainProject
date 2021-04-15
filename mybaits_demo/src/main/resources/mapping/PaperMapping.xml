@@ -48,4 +48,12 @@
     <select id="selectPaperById" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Paper">
         select * from paper where id = #{id}
     </select>
+
+    <select id="countPaperNotChecked" resultType="java.lang.Integer">
+        select count(*) from paper where isChecked is null
+    </select>
+
+    <select id="selectPaperNotChecked" parameterType="java.lang.Integer" resultType="cn.zcbigdata.mybits_demo.entity.Paper">
+        select * from paper where isChecked is null limit #{param1},#{param2}
+    </select>
 </mapper>

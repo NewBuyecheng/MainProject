@@ -3,7 +3,7 @@
 //exdays:存储的天数
 function setCookie(cname,cvalue,exdays){
     var d = new Date();
-    d.setTime(d.getTime()+(exdays*24*60*60*1000));
+    d.setTime(d.getTime()+(exdays*60*1000));
     var expires = "expires="+d.toGMTString();
     document.cookie = cname+"="+cvalue+"; "+expires;
 }
@@ -18,11 +18,12 @@ function getCookie(cname){
 }
 //检测 cookie 值的函数
 function checkCookie(){
-    var user=getCookie("account");
+    var user=getCookie("userName");
     if (user!=""){
+        console.log(document.cookie);
     	//跳转页面
-    	window.location.href = "http://localhost:8080/index1";
-        alert("欢迎 " + user + " 再次访问");
+    	// window.location.href = "http://localhost:8080/index1";
+        // alert("欢迎 " + user + " 再次访问");
         return false;
     }
     return true;

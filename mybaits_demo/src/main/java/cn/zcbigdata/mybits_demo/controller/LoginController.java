@@ -38,7 +38,7 @@ public class LoginController {
         return "back";
     }
 
-    @RequestMapping("/backend")
+    @RequestMapping("/back")
     public String back() {
         return "back";
     }
@@ -108,7 +108,8 @@ public class LoginController {
 
         // 将登录信息放入数据库，便于协查跟踪聊天者
         System.out.println("新用户诞生了：" + user);
-        return UserName;
+        String data =  "{\"userName\":\""+UserName+"\",\"flag\":"+integerflag+"}";
+        return data;
 
     }
 

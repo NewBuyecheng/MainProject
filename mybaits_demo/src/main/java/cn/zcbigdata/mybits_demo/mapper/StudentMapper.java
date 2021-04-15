@@ -1,6 +1,7 @@
 package cn.zcbigdata.mybits_demo.mapper;
 
 import cn.zcbigdata.mybits_demo.entity.Student;
+import cn.zcbigdata.mybits_demo.entity.StudentChoosePaper;
 
 import java.util.List;
 
@@ -26,7 +27,8 @@ public interface StudentMapper {
 
     int updateStudentLast(Student student);
 
-    int choosePaper(Student student);
+    int choosePaper(StudentChoosePaper studentChoosePaper);
+    int choosePaper2(StudentChoosePaper studentChoosePaper);
 
     int insertStuFromXml(List<Student> students);
 }

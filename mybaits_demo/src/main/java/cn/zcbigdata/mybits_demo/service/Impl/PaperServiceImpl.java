@@ -59,4 +59,16 @@ public class PaperServiceImpl implements PaperService {
     public Paper selectPaperById(int paperId) {
         return this.paperMapper.selectPaperById(paperId);
     }
+
+    @Override
+    public int countPaperNotChecked() {
+        return this.paperMapper.countPaperNotChecked();
+    }
+
+    @Override
+    public List<Paper> selectPaperNotChecked(int pageInteger, int limitInteger) {
+        int pageIndex = (pageInteger-1) * limitInteger;
+        int pageSize = limitInteger;
+        return this.paperMapper.selectPaperNotChecked(pageIndex,pageSize);
+    }
 }

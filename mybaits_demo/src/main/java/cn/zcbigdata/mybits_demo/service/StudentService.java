@@ -1,6 +1,7 @@
 package cn.zcbigdata.mybits_demo.service;
 
 import cn.zcbigdata.mybits_demo.entity.Student;
+import cn.zcbigdata.mybits_demo.entity.StudentChoosePaper;
 
 import java.util.List;
 
@@ -26,5 +27,5 @@ public interface StudentService {
 
     int checkLast(Student student);
 
-    int choosePaper(Student student);
+    int choosePaper(StudentChoosePaper studentChoosePaper);
 }

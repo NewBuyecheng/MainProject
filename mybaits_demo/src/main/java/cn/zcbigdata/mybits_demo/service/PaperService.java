@@ -21,4 +21,8 @@ public interface PaperService {
     Paper selectPaperByStudentId(HttpServletRequest request);
 
     Paper selectPaperById(int paperId);
+
+    int countPaperNotChecked();
+
+    List<Paper> selectPaperNotChecked(int a,int b);
 }
